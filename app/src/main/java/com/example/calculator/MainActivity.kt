@@ -77,8 +77,14 @@ class MainActivity : AppCompatActivity() {
         if (view is MaterialButton) {
             if (input.isBlank()) return
             else {
+                if (!input.last().isDigit()) canAddOperation = true
                 input = StringBuilder(input.subSequence(0, input.lastIndex))
-                if (!input.last().isDigit()) canAddOperation = false
+                try {
+                    if (!input.last().isDigit()) canAddOperation = false
+                } catch (e: Exception) {
+                    restart()
+                    binding.btnDecimal.isClickable = false
+                }
             }
             update()
         }
